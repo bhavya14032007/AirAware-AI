@@ -39,13 +39,12 @@ const defaultData: ChartPoint[] = [
 
 export const NafasChart: React.FC = () => {
   const [timeRange, setTimeRange] = useState<'Monthly' | 'Weekly' | 'Daily'>('Monthly');
-  const [hoveredPoint, setHoveredPoint] = useState<ChartPoint | null>(defaultData[16]); // Day 17 default
 
   // Chart dimensions in viewBox coordinates
   const width = 850;
-  const height = 230;
+  const height = 240;
   const padLeft = 45;
-  const padRight = 25;
+  const padRight = 20;
   const padTop = 30;
   const padBottom = 35;
 
@@ -65,6 +64,9 @@ export const NafasChart: React.FC = () => {
     return i === 0 ? `M ${x} ${y}` : `${acc} L ${x} ${y}`;
   }, '');
 
+  // Closed area path for indoor gradient
+  const indoorAreaPath = `${indoorPath} L ${getX(defaultData.length - 1)} ${getY(0)} L ${getX(0)} ${getY(0)} Z`;
+
   const outdoorPath = defaultData.reduce((acc, pt, i) => {
     const x = getX(i);
     const y = getY(pt.outdoor);
@@ -76,34 +78,44 @@ export const NafasChart: React.FC = () => {
   const activeX = getX(activeIndex);
   const activeY = getY(defaultData[activeIndex].indoor);
 
-  return (
-    <div className="rounded-2xl bg-[#8ea293] p-5 shadow-sm text-[#141d18] mb-4 select-none">
-      {/* Chart Header */}
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-bold tracking-tight text-[#141d18]">
-          Outdoor vs Indoor PM 2.5
-        </h3>
+  // Uniform Y-axis intervals (0, 50, 100, 150, 200, 250)
+  const yTicks = [250, 200, 150, 100, 50, 0];
 
-        {/* Legend */}
-        <div className="flex items-center gap-6 text-xs font-semibold">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#141d18]" />
-            <span className="text-[#141d18]">Indoor PM 2.5</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#5d7364]" />
-            <span className="text-[#3c4e42]">Outdoor PM 2.5</span>
-          </div>
+  return (
+    <div className="rounded-xl bg-[#141916] border border-[#232B26] p-5 shadow-sm text-white mb-6 select-none">
+      {/* Chart Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div>
+          <h3 className="text-sm font-semibold tracking-tight text-white">
+            Outdoor vs Indoor PM 2.5
+          </h3>
+          <p className="text-[11px] text-[#718679] mt-0.5">
+            Diurnal particulate filtration efficiency across current billing cycle
+          </p>
         </div>
 
-        {/* Time Selector Dropdown */}
-        <button 
-          onClick={() => setTimeRange(prev => prev === 'Monthly' ? 'Weekly' : 'Monthly')}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#141d18] text-white text-xs font-medium hover:bg-black transition-colors shadow-sm"
-        >
-          <span>{timeRange}</span>
-          <ChevronDown className="w-3.5 h-3.5 text-gray-300" />
-        </button>
+        <div className="flex items-center gap-5">
+          {/* Legend */}
+          <div className="flex items-center gap-4 text-xs font-medium">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#A3E635] shadow-[0_0_8px_rgba(163,230,53,0.4)]" />
+              <span className="text-gray-300">Indoor PM 2.5</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] shadow-[0_0_8px_rgba(139,92,246,0.3)]" />
+              <span className="text-gray-400">Outdoor PM 2.5</span>
+            </div>
+          </div>
+
+          {/* Time Range Selector */}
+          <button 
+            onClick={() => setTimeRange(prev => prev === 'Monthly' ? 'Weekly' : 'Monthly')}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#18201B] border border-[#232B26] hover:border-[#38463E] text-white text-xs font-medium transition-colors shadow-sm"
+          >
+            <span>{timeRange}</span>
+            <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+          </button>
+        </div>
       </div>
 
       {/* SVG Responsive Area & Line Chart */}
@@ -112,16 +124,33 @@ export const NafasChart: React.FC = () => {
           viewBox={`0 0 ${width} ${height}`} 
           className="w-full h-auto overflow-visible"
         >
-          {/* Y-Axis Grid Lines & Labels */}
-          {[250, 150, 55, 35, 12, 0].map((val) => {
+          <defs>
+            {/* Neon lime vertical linear gradient */}
+            <linearGradient id="neonLimeGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#A3E635" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#A3E635" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+
+          {/* Subtle Horizontal Dashed Gridlines & Uniform Y-Axis Ticks */}
+          {yTicks.map((val) => {
             const y = getY(val);
             return (
               <g key={val}>
+                <line
+                  x1={padLeft}
+                  y1={y}
+                  x2={width - padRight}
+                  y2={y}
+                  stroke="#1F2622"
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                />
                 <text
                   x={padLeft - 10}
                   y={y + 3.5}
                   textAnchor="end"
-                  className="text-[10px] font-semibold fill-[#34453a]"
+                  className="text-[10px] font-mono tabular-nums fill-[#64748B]"
                 >
                   {val}
                 </text>
@@ -129,40 +158,29 @@ export const NafasChart: React.FC = () => {
             );
           })}
 
-          {/* Vertical Bar Columns for Indoor PM2.5 */}
-          {defaultData.map((pt, i) => {
-            const x = getX(i);
-            const y = getY(pt.indoor);
-            const barHeight = getY(0) - y;
-            return (
-              <rect
-                key={pt.day}
-                x={x - 2.5}
-                y={y}
-                width={5}
-                height={Math.max(0, barHeight)}
-                rx={2.5}
-                className="fill-[#7a9080]/60 transition-colors"
-              />
-            );
-          })}
+          {/* Indoor PM2.5 Gradient Fill Underneath */}
+          <path
+            d={indoorAreaPath}
+            fill="url(#neonLimeGradient)"
+          />
 
-          {/* Outdoor PM2.5 Line (Smooth higher curve) */}
+          {/* Outdoor PM2.5 Line (Muted Violet #8B5CF6, 2px stroke) */}
           <path
             d={outdoorPath}
             fill="none"
-            stroke="#5d7364"
-            strokeWidth="1.8"
+            stroke="#8B5CF6"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="opacity-80"
           />
 
-          {/* Indoor PM2.5 Line (Dark charcoal curve) */}
+          {/* Indoor PM2.5 Line (Neon Lime #A3E635, 2px stroke) */}
           <path
             d={indoorPath}
             fill="none"
-            stroke="#141d18"
-            strokeWidth="2.5"
+            stroke="#A3E635"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
@@ -170,25 +188,25 @@ export const NafasChart: React.FC = () => {
           {/* Active Tooltip Pill on Day 17: "12 µg/m³" */}
           <g transform={`translate(${activeX}, ${activeY})`}>
             {/* Pulsing Outer Ring */}
-            <circle r="7" className="fill-none stroke-[#141d18]/40 stroke-2" />
+            <circle r="7" className="fill-none stroke-[#A3E635]/40 stroke-2 animate-ping" />
             {/* Center Node */}
-            <circle r="4" className="fill-[#141d18] stroke-[#8ea293] stroke-2" />
+            <circle r="4" className="fill-[#A3E635] stroke-[#0D110E] stroke-2" />
 
-            {/* Black Tooltip Pill floating above */}
-            <g transform="translate(0, -22)">
+            {/* High-contrast tooltip pill */}
+            <g transform="translate(0, -26)">
               <rect
-                x="-30"
-                y="-10"
-                width="60"
-                height="19"
-                rx="9.5"
-                className="fill-[#141d18] shadow-md"
+                x="-34"
+                y="-11"
+                width="68"
+                height="22"
+                rx="6"
+                className="fill-[#0D110E] stroke-[#232B26] stroke-1 shadow-xl"
               />
               <text
                 x="0"
-                y="3"
+                y="4"
                 textAnchor="middle"
-                className="text-[10px] font-bold fill-white"
+                className="text-[10px] font-mono font-bold tabular-nums fill-[#A3E635]"
               >
                 12 µg/m³
               </text>
@@ -205,7 +223,7 @@ export const NafasChart: React.FC = () => {
                 x={x}
                 y={y}
                 textAnchor="middle"
-                className="text-[9px] font-medium fill-[#34453a]"
+                className="text-[9px] font-mono tabular-nums fill-[#64748B]"
               >
                 {pt.day}
               </text>
