@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 8px Grid Base */
+  --grid-unit: 8px;
+
+  /* Light Theme Variables */
+  --bg-app: #f7faf8;
+  --bg-card: #ffffff;
+  --bg-card-secondary: #f0f4f1;
+  --bg-hover: #eaf1eb;
+  --border-main: #e2e8e3;
+  --border-focus: #16a34a;
+  
+  --text-main: #19251b;
+  --text-muted: #536456;
+  --text-subtle: #798b7c;
+
+  --accent-primary: #16a34a;
+  --accent-primary-hover: #15803d;
+  --accent-secondary: #3b82f6;
+
+  /* AQI Severity Colors */
+  --aqi-good: #10b981;
+  --aqi-moderate: #f59e0b;
+  --aqi-sensitive: #f97316;
+  --aqi-unhealthy: #ef4444;
+  --aqi-very-unhealthy: #8b5cf6;
+  --aqi-hazardous: #881337;
+}
+
+.dark {
+  /* Dark Theme Variables */
+  --bg-app: #0e1610;
+  --bg-card: #152219;
+  --bg-card-secondary: #1b2b20;
+  --bg-hover: #223729;
+  --border-main: #24382a;
+  --border-focus: #4ade80;
+
+  --text-main: #f0fdf4;
+  --text-muted: #a1b8a6;
+  --text-subtle: #6c8371;
+
+  --accent-primary: #22c55e;
+  --accent-primary-hover: #4ade80;
+  --accent-secondary: #60a5fa;
+
+  /* AQI Severity Colors */
+  --aqi-good: #34d399;
+  --aqi-moderate: #fbbf24;
+  --aqi-sensitive: #fb923c;
+  --aqi-unhealthy: #f87171;
+  --aqi-very-unhealthy: #a78bfa;
+  --aqi-hazardous: #f43f5e;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reduced Motion Support for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Scrollbar for refined dashboard look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-main);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-subtle);
+}
+
+/* Accessible focus visible styling */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
