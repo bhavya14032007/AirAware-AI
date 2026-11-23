@@ -151,7 +151,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
         <div>
           <div className="flex items-center gap-2">
             <Cpu className="w-5 h-5 text-[#A3E635]" />
-            <h2 id="telemetry-heading" className="text-base sm:text-lg font-bold text-white tracking-tight">
+            <h2 id="telemetry-heading" className="text-base sm:text-lg font-semibold text-white tracking-[-0.02em]">
               Multi-Zone Sensor Mesh & Room Telemetry
             </h2>
           </div>
@@ -166,7 +166,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
             <button
               key={mode}
               onClick={() => setFilterMode(mode)}
-              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                 filterMode === mode
                   ? 'bg-[#18201B] text-[#A3E635] border border-[#232B26] shadow-sm'
                   : 'text-[#879D90] hover:text-white'
@@ -194,16 +194,16 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                 {/* Header: Node ID + Status Tag */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-white group-hover:text-[#A3E635] transition-colors">
+                    <span className="text-xs font-semibold text-white group-hover:text-[#A3E635] transition-colors">
                       {room.roomNumber}
                     </span>
-                    <span className="text-[10px] font-mono text-[#718679] bg-[#18201B] px-1.5 py-0.5 rounded border border-[#232B26]">
+                    <span className="text-[10px] font-mono tabular-nums text-[#718679] bg-[#18201B] px-1.5 py-0.5 rounded border border-[#232B26]">
                       {room.id}
                     </span>
                   </div>
 
                   {/* Semantic Online / Optimizing badge */}
-                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                  <span className={`inline-flex items-center gap-1.5 text-[11px] font-mono font-medium uppercase tracking-wider px-2 py-0.5 rounded-full ${
                     isOptimizing 
                       ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' 
                       : 'bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/25'
@@ -213,8 +213,8 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                   </span>
                 </div>
 
-                <div className="text-xs text-[#879D90] font-medium mb-3">
-                  {room.roomTitle} • <span className="text-[#5D7366]">{room.deviceName}</span>
+                <div className="text-xs text-[#879D90] font-normal mb-3">
+                  {room.roomTitle} • <span className="text-[#5D7366] font-mono text-[11px] tabular-nums">{room.deviceName}</span>
                 </div>
 
                 {/* Primary Dual Ring Status Badges (PM2.5 & CO2) */}
@@ -222,7 +222,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                   {/* PM2.5 Meter */}
                   <div className="flex items-center gap-2.5">
                     <div 
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-mono font-bold tabular-nums"
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-mono font-semibold tabular-nums"
                       style={{
                         backgroundColor: isModerate ? 'rgba(245, 158, 11, 0.12)' : 'rgba(16, 185, 129, 0.12)',
                         border: `1.5px solid ${isModerate ? '#F59E0B' : '#10B981'}`,
@@ -232,8 +232,8 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                       {room.pm25}
                     </div>
                     <div className="leading-tight">
-                      <span className="text-[9px] text-[#718679] uppercase font-semibold block">PM2.5</span>
-                      <span className={`text-xs font-semibold ${isModerate ? 'text-amber-400' : 'text-[#10B981]'}`}>
+                      <span className="text-[9px] text-[#718679] uppercase font-mono font-medium block">PM2.5</span>
+                      <span className={`text-xs font-medium ${isModerate ? 'text-amber-400' : 'text-[#10B981]'}`}>
                         {room.pm25Category}
                       </span>
                     </div>
@@ -242,7 +242,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                   {/* CO2 Meter */}
                   <div className="flex items-center gap-2.5 border-l border-[#232B26] pl-2.5">
                     <div 
-                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-mono font-bold text-[#10B981] tabular-nums"
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-mono font-semibold text-[#10B981] tabular-nums"
                       style={{
                         backgroundColor: 'rgba(16, 185, 129, 0.12)',
                         border: '1.5px solid #10B981'
@@ -251,8 +251,8 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                       {room.co2}
                     </div>
                     <div className="leading-tight">
-                      <span className="text-[9px] text-[#718679] uppercase font-semibold block">CO₂</span>
-                      <span className="text-xs font-semibold text-[#10B981]">
+                      <span className="text-[9px] text-[#718679] uppercase font-mono font-medium block">CO₂</span>
+                      <span className="text-xs font-medium text-[#10B981]">
                         {room.co2Status}
                       </span>
                     </div>
@@ -263,15 +263,15 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
                 <div className="grid grid-cols-3 gap-2 py-1 text-xs text-[#879D90]">
                   <div className="flex items-center gap-1.5">
                     <Thermometer className="w-3.5 h-3.5 text-[#5D7366]" />
-                    <span className="font-mono tabular-nums text-gray-300">{room.temp}°C</span>
+                    <span className="font-mono tabular-nums text-gray-300">{room.temp}<span className="text-[#718679] text-[10px]">°C</span></span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Droplets className="w-3.5 h-3.5 text-[#5D7366]" />
-                    <span className="font-mono tabular-nums text-gray-300">{room.humidity}%</span>
+                    <span className="font-mono tabular-nums text-gray-300">{room.humidity}<span className="text-[#718679] text-[10px]">%</span></span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Wind className="w-3.5 h-3.5 text-[#5D7366]" />
-                    <span className="font-mono tabular-nums text-gray-300">{room.cadr} m³/h</span>
+                    <span className="font-mono tabular-nums text-gray-300">{room.cadr} <span className="text-[#718679] text-[10px]">m³/h</span></span>
                   </div>
                 </div>
               </div>
@@ -279,7 +279,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
               {/* Bottom: Filter Lifespan & Controls */}
               <div className="mt-4 pt-3 border-t border-[#232B26] flex items-center justify-between text-xs">
                 <div>
-                  <div className="flex justify-between text-[10px] text-[#718679] mb-1 font-mono font-semibold">
+                  <div className="flex justify-between text-[11px] text-[#718679] mb-1 font-mono font-medium">
                     <span>HEPA Lifespan</span>
                     <span className="text-gray-300 tabular-nums">{room.filterLife}%</span>
                   </div>
@@ -293,7 +293,7 @@ export const NafasTelemetrySection: React.FC<NafasTelemetrySectionProps> = ({ on
 
                 <div className="text-right">
                   <span className="text-[10px] text-[#718679] font-medium block">Fan Mode</span>
-                  <span className="text-xs font-mono font-bold text-[#A3E635]">{room.fanMode}</span>
+                  <span className="text-xs font-mono font-semibold text-[#A3E635]">{room.fanMode}</span>
                 </div>
               </div>
             </article>

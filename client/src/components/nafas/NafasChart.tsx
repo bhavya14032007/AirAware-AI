@@ -86,7 +86,7 @@ export const NafasChart: React.FC = () => {
       {/* Chart Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-sm font-semibold tracking-tight text-white">
+          <h3 className="text-sm font-semibold tracking-[-0.02em] text-white">
             Outdoor vs Indoor PM 2.5
           </h3>
           <p className="text-[11px] text-[#718679] mt-0.5">
@@ -206,7 +206,7 @@ export const NafasChart: React.FC = () => {
                 x="0"
                 y="4"
                 textAnchor="middle"
-                className="text-[10px] font-mono font-bold tabular-nums fill-[#A3E635]"
+                className="text-[10px] font-mono font-medium tabular-nums fill-[#A3E635]"
               >
                 12 µg/m³
               </text>

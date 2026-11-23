@@ -30,18 +30,18 @@ export const NafasSidebar: React.FC<NafasSidebarProps> = ({ activeNav, onNavClic
             {`{n}`}
           </div>
           <div>
-            <span className="font-bold text-lg tracking-tight text-white block leading-none">nafas</span>
-            <span className="text-[10px] font-mono text-[#718679] leading-none">Environmental IQ</span>
+            <span className="font-semibold text-lg tracking-[-0.02em] text-white block leading-none">nafas</span>
+            <span className="text-[10px] font-mono tabular-nums text-[#718679] leading-none">Environmental IQ</span>
           </div>
         </div>
 
         {/* Primary Dashboard Pill Button */}
         <button
           onClick={() => onNavClick('dashboard')}
-          className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl font-semibold text-xs tracking-wide transition-all ${
+          className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs tracking-wide transition-all ${
             activeNav === 'dashboard'
-              ? 'bg-[#A3E635] text-[#0D110E] shadow-[0_0_12px_rgba(163,230,53,0.25)] font-bold'
-              : 'text-gray-400 hover:bg-[#141916] hover:text-white'
+              ? 'bg-[#A3E635] text-[#0D110E] shadow-[0_0_12px_rgba(163,230,53,0.25)] font-semibold'
+              : 'text-gray-400 hover:bg-[#141916] hover:text-white font-medium'
           }`}
         >
           <div className="w-4 h-4 flex items-center justify-center">
@@ -57,7 +57,7 @@ export const NafasSidebar: React.FC<NafasSidebarProps> = ({ activeNav, onNavClic
 
         {/* Section: Account Management */}
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#5D7366] px-2 block mb-2">
+          <span className="text-[11px] uppercase font-mono font-medium tracking-wider text-[#5D7366] px-2 block mb-2">
             Account Management
           </span>
           <div className="space-y-1">
@@ -95,7 +95,7 @@ export const NafasSidebar: React.FC<NafasSidebarProps> = ({ activeNav, onNavClic
 
         {/* Section: Organization Utilities */}
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#5D7366] px-2 block mb-2">
+          <span className="text-[11px] uppercase font-mono font-medium tracking-wider text-[#5D7366] px-2 block mb-2">
             Organization Utilities
           </span>
           <div className="space-y-1">
@@ -124,7 +124,7 @@ export const NafasSidebar: React.FC<NafasSidebarProps> = ({ activeNav, onNavClic
 
         {/* Section: Store Utilities */}
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#5D7366] px-2 block mb-2">
+          <span className="text-[11px] uppercase font-mono font-medium tracking-wider text-[#5D7366] px-2 block mb-2">
             Store Utilities
           </span>
           <div className="space-y-1">

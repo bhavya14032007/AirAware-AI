@@ -67,7 +67,7 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
                 <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
                 <span>
                   Morning Peak Smog:{' '}
-                  <strong className="text-[#F4F4F5] font-mono tabular-nums">6:30 AM – 9:45 AM</strong> (Keep sealed)
+                  <strong className="text-[#F4F4F5] font-mono tabular-nums font-medium">6:30 AM – 9:45 AM</strong> (Keep sealed)
                 </span>
               </div>
             </div>
@@ -78,14 +78,14 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
         <div className="flex items-center gap-2.5 shrink-0 self-start lg:self-center pt-2 lg:pt-0 border-t lg:border-t-0 border-[#232B26] w-full lg:w-auto">
           <button
             onClick={onOpenAdvisor}
-            className="flex-1 lg:flex-none px-4 py-2 rounded-lg bg-[#A3E635] hover:bg-[#B0EF46] text-[#0D110E] text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-1.5"
+            className="flex-1 lg:flex-none px-4 py-2 rounded-lg bg-[#A3E635] hover:bg-[#B0EF46] text-[#0D110E] text-xs font-semibold transition-all shadow-sm flex items-center justify-center gap-1.5"
           >
             <span>Ask AI Advisor</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onOpenSimulator}
-            className="flex-1 lg:flex-none px-4 py-2 rounded-lg bg-[#18201B] hover:bg-[#1E2721] text-gray-200 hover:text-white text-xs font-semibold transition-colors border border-[#232B26] flex items-center justify-center gap-1.5"
+            className="flex-1 lg:flex-none px-4 py-2 rounded-lg bg-[#18201B] hover:bg-[#1E2721] text-gray-200 hover:text-white text-xs font-medium transition-colors border border-[#232B26] flex items-center justify-center gap-1.5"
           >
             <GitCompare className="w-3.5 h-3.5 text-[#A3E635]" />
             <span>Simulate What-If</span>
@@ -100,7 +100,7 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
           <div className="flex items-center justify-between text-xs font-medium text-gray-300">
             <span className="text-gray-300 font-medium">Infiltration Reduction</span>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full border border-[#10B981]/25">
+              <span className="text-[11px] font-mono text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full border border-[#10B981]/25 tracking-wider">
                 Exclusion Active
               </span>
               <ShieldCheck className="w-4 h-4 text-[#718679]" />
@@ -109,10 +109,10 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="my-3">
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-tight tabular-nums">
+              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-[-0.02em] tabular-nums">
                 95.1%
               </span>
-              <span className="text-xs font-semibold text-[#10B981]">Particulate Block</span>
+              <span className="text-xs font-medium text-[#10B981]">Particulate Block</span>
             </div>
             <p className="text-xs text-[#718679] mt-1 leading-relaxed">
               Outdoor 244 µg/m³ scrubbed down to 12 µg/m³ across sealed residential envelopes.
@@ -121,7 +121,7 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="pt-3 border-t border-[#232B26] text-[11px] text-[#718679] flex items-center justify-between">
             <span>WHO 24h Guideline Target</span>
-            <strong className="text-white font-mono tabular-nums">15 µg/m³ (Met)</strong>
+            <strong className="text-white font-mono tabular-nums font-medium">15 µg/m³ (Met)</strong>
           </div>
         </div>
 
@@ -134,10 +134,10 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="my-3">
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-tight tabular-nums">
+              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-[-0.02em] tabular-nums">
                 42.8
               </span>
-              <span className="text-xs font-mono text-gray-400">kg CO₂e</span>
+              <span className="text-xs font-mono tabular-nums text-gray-400">kg CO₂e</span>
             </div>
             <p className="text-xs text-[#718679] mt-1 leading-relaxed">
               Weekly carbon offset from adaptive EC-motor variable speed scheduling and thermal envelope retention.
@@ -146,7 +146,7 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="pt-3 border-t border-[#232B26] text-[11px] text-[#718679] flex items-center justify-between">
             <span>Grid Factor: 0.71 kg CO₂/kWh</span>
-            <strong className="text-white font-mono">Building HVAC Benchmark</strong>
+            <strong className="text-white font-mono font-medium">Building HVAC Benchmark</strong>
           </div>
         </div>
 
@@ -159,10 +159,10 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="my-3">
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-tight tabular-nums">
+              <span className="text-3xl font-semibold font-mono text-[#F4F4F5] tracking-[-0.02em] tabular-nums">
                 1.82
               </span>
-              <span className="text-xs font-mono text-gray-400">kWh/room/day</span>
+              <span className="text-xs font-mono tabular-nums text-gray-400">kWh/room/day</span>
             </div>
             <p className="text-xs text-[#718679] mt-1 leading-relaxed">
               Brushless DC fan motors running in adaptive Eco-Auto mode maintain low operational draw.
@@ -171,7 +171,7 @@ export const NafasAnalyticsSection: React.FC<NafasAnalyticsSectionProps> = ({
 
           <div className="pt-3 border-t border-[#232B26] text-[11px] text-[#718679] flex items-center justify-between">
             <span>Energy Star Benchmark</span>
-            <strong className="text-[#10B981] font-mono">Tier 1 High-Efficiency</strong>
+            <strong className="text-[#10B981] font-mono font-medium">Tier 1 High-Efficiency</strong>
           </div>
         </div>
       </div>

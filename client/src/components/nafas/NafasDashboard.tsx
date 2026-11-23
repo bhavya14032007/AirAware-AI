@@ -91,14 +91,14 @@ export const NafasDashboard: React.FC = () => {
           {/* Page Title & Location Badge */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-[-0.02em]">
                 Floor Overview
               </h1>
               <div className="flex items-center gap-2 mt-1 text-xs text-[#718679]">
                 <MapPin className="w-3.5 h-3.5 text-[#A3E635]" />
                 <span>Monitoring Station: <strong className="text-white font-medium">{location.city || 'Connaught Place, New Delhi'}</strong></span>
                 <span>•</span>
-                <span className="text-[#10B981] font-semibold">Live Mesh Synced</span>
+                <span className="text-[#10B981] font-mono text-[11px] font-medium tracking-wide">Live Mesh Synced</span>
               </div>
             </div>
 

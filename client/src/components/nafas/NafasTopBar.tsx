@@ -97,7 +97,7 @@ export const NafasTopBar: React.FC<NafasTopBarProps> = ({ onProfileClick, onBack
             </div>
           </button>
 
-          <span className={theme === 'dark' ? 'text-white font-semibold' : 'text-[#718679]'}>
+          <span className={theme === 'dark' ? 'text-white font-medium' : 'text-[#718679]'}>
             Dark
           </span>
         </div>
@@ -108,7 +108,7 @@ export const NafasTopBar: React.FC<NafasTopBarProps> = ({ onProfileClick, onBack
           className="flex items-center gap-2.5 pl-3.5 pr-1.5 py-1 rounded-full bg-[#141916] border border-[#232B26] hover:border-[#38463E] transition-all group shadow-sm"
           title="Household Profile & Settings"
         >
-          <span className="text-xs font-semibold text-white">Hello, Nixtio 👋</span>
+          <span className="text-xs font-medium text-white">Hello, Nixtio 👋</span>
           <div className="w-7 h-7 rounded-lg bg-[#0D110E] border border-[#232B26] flex items-center justify-center text-white group-hover:border-[#A3E635]/40 transition-colors">
             {/* Geometric stylized 'N' logo icon */}
             <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 text-[#A3E635]">

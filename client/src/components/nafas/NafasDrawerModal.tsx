@@ -60,14 +60,14 @@ export const NafasDrawerModal: React.FC<NafasDrawerModalProps> = ({
         {/* Modal Top Header */}
         <div className="p-4 sm:p-5 border-b border-[#1f2b23] flex items-center justify-between bg-[#151e18]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#a3e635] text-[#0f1512] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-[#a3e635] text-[#0f1512] flex items-center justify-center font-semibold font-mono">
               {selectedRoom ? selectedRoom.name.slice(-1) : 'A'}
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-bold text-white">
+              <h3 className="text-sm sm:text-base font-semibold text-white tracking-[-0.02em]">
                 {selectedRoom ? `${selectedRoom.name} Environmental Intelligence & Controls` : 'AirAware AI Intelligence Suite'}
               </h3>
-              <p className="text-xs text-[#718679]">
+              <p className="text-xs text-[#718679] font-mono tabular-nums">
                 {selectedRoom 
                   ? `Indoor PM2.5: ${selectedRoom.pm25Value} µg/m³ (${selectedRoom.pm25Category}) | CO₂: ${selectedRoom.co2Value} (${selectedRoom.co2Status})`
                   : 'GenAI Pollution Protection & Optimization Engine'}

@@ -27,7 +27,7 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
             </div>
             <span className="text-gray-300 font-medium">Current PM2.5 Level</span>
           </div>
-          <span className="text-[10px] uppercase font-mono tracking-wider text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full border border-[#10B981]/25">
+          <span className="text-[11px] uppercase font-mono tracking-wider text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full border border-[#10B981]/25">
             Optimal
           </span>
         </div>
@@ -42,16 +42,16 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
               color: '#A3E635'
             }}
           >
-            <span className="text-3xl font-bold font-mono tracking-tight tabular-nums">{currentIndoorPM25}</span>
-            <div className="text-[10px] font-semibold leading-tight text-[#A3E635]">
+            <span className="text-3xl font-semibold font-mono tracking-[-0.02em] tabular-nums">{currentIndoorPM25}</span>
+            <div className="text-[10px] font-medium leading-tight text-[#A3E635]">
               <span>Indoor</span><br />
-              <span className="opacity-80">µg/m³</span>
+              <span className="opacity-80 font-mono tabular-nums">µg/m³</span>
             </div>
           </div>
 
           <div className="text-xs text-[#718679] leading-tight">
             <span className="text-gray-300 font-medium block">WHO Safe Tier</span>
-            <span className="text-[11px]">&lt; 15 µg/m³ 24h</span>
+            <span className="text-[11px] font-mono tabular-nums">&lt; 15 µg/m³ 24h</span>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
             </div>
             <span>Today's Average PM2.5 Levels</span>
           </div>
-          <span className="text-[10px] uppercase font-mono text-[#718679] tracking-wider">
+          <span className="text-[11px] uppercase font-mono text-[#718679] tracking-wider">
             Up to 11:00 AM
           </span>
         </div>
@@ -85,10 +85,10 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
               color: '#A3E635'
             }}
           >
-            <span className="text-2xl font-bold font-mono tracking-tight tabular-nums">{averageIndoorPM25}</span>
-            <div className="text-[10px] font-semibold leading-tight text-[#A3E635]">
+            <span className="text-2xl font-semibold font-mono tracking-[-0.02em] tabular-nums">{averageIndoorPM25}</span>
+            <div className="text-[10px] font-medium leading-tight text-[#A3E635]">
               <span>Indoor</span><br />
-              <span className="opacity-80">µg/m³</span>
+              <span className="opacity-80 font-mono tabular-nums">µg/m³</span>
             </div>
           </div>
 
@@ -101,10 +101,10 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
               color: '#C4B5FD'
             }}
           >
-            <span className="text-2xl font-bold font-mono tracking-tight tabular-nums text-white">{averageOutdoorPM25}</span>
-            <div className="text-[10px] font-semibold leading-tight text-[#C4B5FD]">
+            <span className="text-2xl font-semibold font-mono tracking-[-0.02em] tabular-nums text-white">{averageOutdoorPM25}</span>
+            <div className="text-[10px] font-medium leading-tight text-[#C4B5FD]">
               <span>Outdoor</span><br />
-              <span className="opacity-80">µg/m³</span>
+              <span className="opacity-80 font-mono tabular-nums">µg/m³</span>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
           </div>
 
           {/* Trend Pill in Emerald */}
-          <span className="inline-flex items-center gap-0.5 text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/25 tabular-nums">
+          <span className="inline-flex items-center gap-0.5 text-[11px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/25 tabular-nums">
             <ArrowDownRight className="w-3 h-3" />
             -4.2% vs yesterday
           </span>
@@ -131,10 +131,10 @@ export const NafasMetricsRow: React.FC<NafasMetricsRowProps> = ({
 
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold font-mono text-[#A3E635] tracking-tight tabular-nums">
+            <span className="text-3xl font-semibold font-mono text-[#A3E635] tracking-[-0.02em] tabular-nums">
               {powerConsumptionKWh}
             </span>
-            <span className="text-xs text-[#718679] font-mono">kWh</span>
+            <span className="text-xs text-[#718679] font-mono tabular-nums">kWh</span>
           </div>
 
           <button

@@ -78,7 +78,7 @@ export const NafasEventLog: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <History className="w-5 h-5 text-[#A3E635]" />
-            <h2 id="events-heading" className="text-base sm:text-lg font-bold text-white tracking-tight">
+            <h2 id="events-heading" className="text-base sm:text-lg font-semibold text-white tracking-[-0.02em]">
               Building Air Quality & Operational Incident Log
             </h2>
           </div>
@@ -93,7 +93,7 @@ export const NafasEventLog: React.FC = () => {
             <button
               key={sev}
               onClick={() => setSelectedSeverity(sev)}
-              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                 selectedSeverity === sev
                   ? 'bg-[#18201B] text-[#A3E635] border border-[#232B26] shadow-sm'
                   : 'text-[#879D90] hover:text-white'
@@ -110,7 +110,7 @@ export const NafasEventLog: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-[#232B26] bg-[#0D110E] text-[#718679] uppercase font-mono font-bold text-[10px] tracking-wider">
+              <tr className="border-b border-[#232B26] bg-[#0D110E] text-[#718679] uppercase font-mono font-medium text-[11px] tracking-wider">
                 <th className="py-3.5 px-5 w-24">Time</th>
                 <th className="py-3.5 px-5 w-48">Zone / Room</th>
                 <th className="py-3.5 px-5 min-w-[320px]">Operational Event</th>
@@ -150,7 +150,7 @@ export const NafasEventLog: React.FC = () => {
 
                     {/* Normalized Severity Badges with Uniform w-24 Width */}
                     <td className="py-3.5 px-5 text-center whitespace-nowrap">
-                      <span className={`inline-flex items-center justify-center w-24 text-center text-[10px] font-mono font-semibold uppercase tracking-wider py-0.5 rounded-full ${
+                      <span className={`inline-flex items-center justify-center w-24 text-center text-[10px] font-mono font-medium uppercase tracking-wider py-0.5 rounded-full ${
                         isAlert
                           ? 'bg-red-500/10 text-red-400 border border-red-500/25'
                           : isAdvisory
