@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './context/ThemeContext';
 import { ProfileProvider } from './context/ProfileContext';
 import { EnvironmentalProvider } from './context/EnvironmentalContext';
@@ -10,6 +11,7 @@ export const App: React.FC = () => {
       <ProfileProvider>
         <EnvironmentalProvider>
           <NafasDashboard />
+          <Analytics />
         </EnvironmentalProvider>
       </ProfileProvider>
     </ThemeProvider>
