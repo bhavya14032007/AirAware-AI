@@ -36,6 +36,58 @@ export function getPM10Category(val: number): AQICategory {
   return 'Hazardous';
 }
 
+// Raw Open-Meteo API response typings
+interface GeocodingRawResult {
+  latitude: number;
+  longitude: number;
+  name: string;
+  country?: string;
+  admin1?: string;
+}
+
+interface GeocodingRawResponse {
+  results?: GeocodingRawResult[];
+}
+
+interface AirQualityRawCurrent {
+  time?: string;
+  us_aqi?: number;
+  european_aqi?: number;
+  pm2_5?: number;
+  pm10?: number;
+  nitrogen_dioxide?: number;
+  ozone?: number;
+  sulphur_dioxide?: number;
+  carbon_monoxide?: number;
+}
+
+interface AirQualityRawHourly {
+  time?: string[];
+  us_aqi?: number[];
+  pm2_5?: number[];
+  pm10?: number[];
+}
+
+interface AirQualityRawResponse {
+  current?: AirQualityRawCurrent;
+  hourly?: AirQualityRawHourly;
+}
+
+interface WeatherRawCurrent {
+  temperature_2m?: number;
+  apparent_temperature?: number;
+  relative_humidity_2m?: number;
+  wind_speed_10m?: number;
+  wind_direction_10m?: number;
+  precipitation?: number;
+  weather_code?: number;
+  time?: string;
+}
+
+interface WeatherRawResponse {
+  current?: WeatherRawCurrent;
+}
+
 // Pre-configured realistic benchmark locations
 export const BENCHMARK_LOCATIONS: Record<string, { lat: number; lon: number; name: string; city: string; country: string }> = {
   'delhi': { lat: 28.6139, lon: 77.2090, name: 'Connaught Place, New Delhi', city: 'New Delhi', country: 'India' },
@@ -56,11 +108,11 @@ export class OpenMeteoService {
       const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=6&language=en&format=json`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Geocoding failed with status ${res.status}`);
-      const data = await res.json() as any;
+      const data = (await res.json()) as GeocodingRawResponse;
 
       if (!data.results) return [];
 
-      return data.results.map((r: any) => ({
+      return data.results.map((r: GeocodingRawResult) => ({
         id: `${r.latitude}_${r.longitude}`,
         name: `${r.name}${r.admin1 ? ', ' + r.admin1 : ''}, ${r.country || ''}`,
         city: r.name,
@@ -109,7 +161,7 @@ export class OpenMeteoService {
         throw new Error(`Open-Meteo Air Quality responded with ${res.status}`);
       }
 
-      const json = await res.json() as any;
+      const json = (await res.json()) as AirQualityRawResponse;
       const current = json.current || {};
       const hourly = json.hourly || {};
 
@@ -250,7 +302,7 @@ export class OpenMeteoService {
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Weather fetch failed: ${res.status}`);
 
-      const data = await res.json() as any;
+      const data = (await res.json()) as WeatherRawResponse;
       const current = data.current || {};
 
       const weather: WeatherData = {

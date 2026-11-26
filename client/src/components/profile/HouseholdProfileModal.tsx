@@ -157,7 +157,7 @@ export const HouseholdProfileModal: React.FC<HouseholdProfileModalProps> = ({ is
                 </label>
                 <select
                   value={formData.commuteMode}
-                  onChange={(e) => setFormData(prev => ({ ...prev, commuteMode: e.target.value as any }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, commuteMode: e.target.value as HouseholdProfile['commuteMode'] }))}
                   className="w-full px-3 py-2 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card-secondary)] text-xs text-[var(--text-main)] focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="transit">Public Transit (Metro / Bus)</option>
@@ -174,7 +174,7 @@ export const HouseholdProfileModal: React.FC<HouseholdProfileModalProps> = ({ is
                 </label>
                 <select
                   value={formData.budgetTier}
-                  onChange={(e) => setFormData(prev => ({ ...prev, budgetTier: e.target.value as any }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, budgetTier: e.target.value as HouseholdProfile['budgetTier'] }))}
                   className="w-full px-3 py-2 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card-secondary)] text-xs text-[var(--text-main)] focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="free">Zero-Cost Solutions Only</option>

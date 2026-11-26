@@ -81,10 +81,11 @@ export const ChatWindow: React.FC = () => {
       };
 
       setMessages(prev => [...prev, botMsg]);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : 'Network error';
       const errorMsg: Message = {
         role: 'assistant',
-        content: `I encountered an issue processing your request: ${err?.message || 'Network error'}. Please try again.`,
+        content: `I encountered an issue processing your request: ${errMsg}. Please try again.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, errorMsg]);

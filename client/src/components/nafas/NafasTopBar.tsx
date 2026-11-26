@@ -41,17 +41,26 @@ export const NafasTopBar: React.FC<NafasTopBarProps> = ({ onProfileClick, onBack
           <div className="relative">
             <button
               onClick={() => setIsFloorDropdownOpen(prev => !prev)}
-              className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#141916] border border-[#232B26] text-white font-medium hover:border-[#38463E] transition-colors"
+              aria-haspopup="listbox"
+              aria-expanded={isFloorDropdownOpen}
+              aria-label="Select floor level"
+              className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#141916] border border-[#232B26] text-white font-medium hover:border-[#38463E] transition-colors focus:outline-none focus:ring-1 focus:ring-[#A3E635]"
             >
               <span>{selectedFloor.split(' ')[0]} {selectedFloor.split(' ')[1]}</span>
               <ChevronDown className="w-3 h-3 text-[#A3E635]" />
             </button>
 
             {isFloorDropdownOpen && (
-              <div className="absolute left-0 top-full mt-1.5 w-60 rounded-xl bg-[#141916] border border-[#232B26] p-1.5 shadow-xl z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div 
+                role="listbox" 
+                aria-label="Building floors"
+                className="absolute left-0 top-full mt-1.5 w-60 rounded-xl bg-[#141916] border border-[#232B26] p-1.5 shadow-xl z-50 animate-in fade-in zoom-in-95 duration-100"
+              >
                 {floors.map((fl) => (
                   <button
                     key={fl}
+                    role="option"
+                    aria-selected={selectedFloor === fl}
                     onClick={() => {
                       setSelectedFloor(fl);
                       setIsFloorDropdownOpen(false);

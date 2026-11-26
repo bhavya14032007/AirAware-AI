@@ -120,7 +120,7 @@ export const api = {
   },
 
   async getDailyPlan(lat: number, lon: number, locationName?: string): Promise<{
-    location: any;
+    location: { name?: string; city?: string; country?: string; latitude?: number; longitude?: number } | Record<string, unknown>;
     aqi: number;
     category: string;
     actions: DailyRoutineAction[];

@@ -108,15 +108,15 @@ export const NafasEventLog: React.FC = () => {
       {/* Events Table Container (Surface: #141916, Border: #232B26) */}
       <div className="rounded-xl bg-[#141916] border border-[#232B26] overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse" aria-label="Building air quality and operational incident log">
             <thead>
               <tr className="border-b border-[#232B26] bg-[#0D110E] text-[#718679] uppercase font-mono font-medium text-[11px] tracking-wider">
-                <th className="py-3.5 px-5 w-24">Time</th>
-                <th className="py-3.5 px-5 w-48">Zone / Room</th>
-                <th className="py-3.5 px-5 min-w-[320px]">Operational Event</th>
-                <th className="py-3.5 px-5 w-52">Shift & Impact</th>
-                <th className="py-3.5 px-5 w-32 text-center">Severity</th>
-                <th className="py-3.5 px-5 text-right w-28">Status</th>
+                <th scope="col" className="py-3.5 px-5 w-24">Time</th>
+                <th scope="col" className="py-3.5 px-5 w-48">Zone / Room</th>
+                <th scope="col" className="py-3.5 px-5 min-w-[320px]">Operational Event</th>
+                <th scope="col" className="py-3.5 px-5 w-52">Shift & Impact</th>
+                <th scope="col" className="py-3.5 px-5 w-32 text-center">Severity</th>
+                <th scope="col" className="py-3.5 px-5 text-right w-28">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1D2621] text-gray-200">

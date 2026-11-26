@@ -57,9 +57,10 @@ export const EnvironmentalProvider: React.FC<{ children: React.ReactNode }> = ({
       ]);
       setAirQuality(aqData);
       setWeather(weatherData);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to load air quality data';
       console.error('Failed to fetch environmental data:', err);
-      setError(err?.message || 'Failed to load air quality data');
+      setError(msg);
     } finally {
       setIsLoading(false);
     }

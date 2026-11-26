@@ -98,7 +98,7 @@ export const WhatIfSimulator: React.FC = () => {
             </label>
             <select
               value={commuteMode}
-              onChange={(e) => setCommuteMode(e.target.value as any)}
+              onChange={(e) => setCommuteMode(e.target.value as 'car' | 'transit' | 'bike')}
               className="w-full px-3 py-2 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card-secondary)] text-sm text-[var(--text-main)] focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="car">Solo Car (Petrol/Diesel)</option>

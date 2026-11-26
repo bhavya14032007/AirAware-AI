@@ -22,7 +22,7 @@ export class GeminiService {
   private static async executeGeminiPrompt<T>(
     systemInstruction: string,
     prompt: string,
-    validator: (data: any) => T,
+    validator: (data: unknown) => T,
     fallbackGenerator: () => T
   ): Promise<T> {
     if (!this.genAI || !config.geminiApiKey) {
@@ -42,10 +42,11 @@ export class GeminiService {
 
       const result = await model.generateContent(prompt);
       const text = result.response.text();
-      const parsed = JSON.parse(text);
+      const parsed: unknown = JSON.parse(text);
       return validator(parsed);
-    } catch (err: any) {
-      console.warn('Gemini API call failed or timed out. Falling back to local intelligence engine:', err?.message || err);
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      console.warn('Gemini API call failed or timed out. Falling back to local intelligence engine:', errorMsg);
       return fallbackGenerator();
     }
   }

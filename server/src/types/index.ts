@@ -57,21 +57,40 @@ export interface WeatherData {
   timestamp: string;
 }
 
-export interface HouseholdProfile {
-  id?: string;
-  userId?: string;
-  householdSize: number;
-  hasChildren: boolean;
-  hasElderly: boolean;
-  hasAsthmaRespiratory: boolean;
-  hasHeartConditions: boolean;
-  commuteMode: 'transit' | 'car' | 'bike' | 'walk' | 'remote';
-  dailyOutdoorHours: number;
-  hasAirPurifier: boolean;
-  hasN95Masks: boolean;
-  hasHepaAcFilters: boolean;
-  budgetTier: 'free' | 'low_cost' | 'moderate' | 'premium';
-}
+export const HouseholdProfileSchema = z.object({
+  id: z.string().optional(),
+  userId: z.string().optional(),
+  householdSize: z.number().min(1).max(20).default(1),
+  hasChildren: z.boolean().default(false),
+  hasElderly: z.boolean().default(false),
+  hasAsthmaRespiratory: z.boolean().default(false),
+  hasHeartConditions: z.boolean().default(false),
+  commuteMode: z.enum(['transit', 'car', 'bike', 'walk', 'remote']).default('transit'),
+  dailyOutdoorHours: z.number().min(0).max(24).default(1),
+  hasAirPurifier: z.boolean().default(false),
+  hasN95Masks: z.boolean().default(false),
+  hasHepaAcFilters: z.boolean().default(false),
+  budgetTier: z.enum(['free', 'low_cost', 'moderate', 'premium']).default('moderate')
+});
+
+export type HouseholdProfile = z.infer<typeof HouseholdProfileSchema>;
+
+export const RoutineSliceSchema = z.object({
+  commuteMode: z.string(),
+  commuteDistanceKm: z.number().min(0).max(500),
+  errandsTrips: z.number().min(0).max(50),
+  outdoorExerciseMinutes: z.number().min(0).max(720),
+  outdoorExerciseTime: z.string(),
+  cookingVentilation: z.string(),
+  heatingSource: z.string()
+});
+
+export const WhatIfScenarioSchema = z.object({
+  usualRoutine: RoutineSliceSchema,
+  optimizedAlternative: RoutineSliceSchema
+});
+
+export type WhatIfScenarioInput = z.infer<typeof WhatIfScenarioSchema>;
 
 export const AIRecommendationSchema = z.object({
   title: z.string(),
@@ -105,27 +124,6 @@ export interface DailyRoutineAction {
   category: 'indoor' | 'outdoor' | 'commute' | 'sustainability';
   completed: boolean;
   expectedBenefit: string;
-}
-
-export interface WhatIfScenarioInput {
-  usualRoutine: {
-    commuteMode: string;
-    commuteDistanceKm: number;
-    errandsTrips: number;
-    outdoorExerciseMinutes: number;
-    outdoorExerciseTime: string; // e.g. "08:00"
-    cookingVentilation: string;
-    heatingSource: string;
-  };
-  optimizedAlternative: {
-    commuteMode: string;
-    commuteDistanceKm: number;
-    errandsTrips: number;
-    outdoorExerciseMinutes: number;
-    outdoorExerciseTime: string;
-    cookingVentilation: string;
-    heatingSource: string;
-  };
 }
 
 export interface WhatIfScenarioResult {

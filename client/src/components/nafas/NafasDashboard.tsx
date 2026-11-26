@@ -72,6 +72,14 @@ export const NafasDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full bg-[#0D110E] text-white flex flex-col lg:flex-row font-sans antialiased selection:bg-[#A3E635] selection:text-[#0D110E]">
+      {/* Accessibility Skip-to-Content Link for Screen Readers & Keyboard Navigation */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#A3E635] focus:text-[#0D110E] focus:rounded-lg focus:font-semibold focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A3E635]"
+      >
+        Skip to main content
+      </a>
+
       {/* Fixed Full-Height Left Sidebar */}
       <NafasSidebar
         activeNav={activeNav}
@@ -81,7 +89,7 @@ export const NafasDashboard: React.FC = () => {
 
       {/* Main Full-Width Scrollable Content */}
       <div className="flex-1 min-w-0 bg-[#0D110E] flex flex-col justify-between">
-        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <main id="main-content" tabIndex={-1} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 outline-none">
           {/* Top Bar with Breadcrumbs & Theme/User Controls */}
           <NafasTopBar
             onProfileClick={() => setIsProfileOpen(true)}
