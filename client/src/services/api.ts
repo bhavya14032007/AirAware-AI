@@ -11,7 +11,9 @@ import {
   CommunityData
 } from '../types';
 
-const API_BASE = '/api';
+// Read API base URL from Vite environment variable when deployed separately (e.g. Vercel -> Render)
+// Fall back to local relative '/api' proxy
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '');
 
 export const api = {
   // Environmental Endpoints

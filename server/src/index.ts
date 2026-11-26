@@ -19,9 +19,38 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
-// CORS configuration
+// CORS configuration with support for Vercel deployments, localhost, and custom CLIENT_URL
+const allowedOrigins = [
+  config.clientUrl,
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+].filter(Boolean);
+
 app.use(cors({
-  origin: [config.clientUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    const clientUrls = (process.env.CLIENT_URL || '')
+      .split(',')
+      .map(u => u.trim())
+      .filter(Boolean);
+
+    const isExplicit = allowedOrigins.includes(origin) || clientUrls.includes(origin);
+    const isVercel = /\.vercel\.app$/.test(new URL(origin).hostname);
+    const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+
+    if (isExplicit || isVercel || isLocal) {
+      return callback(null, true);
+    }
+
+    // Allow in non-strict demo mode, otherwise restrict
+    if (config.demoMode) {
+      return callback(null, true);
+    }
+
+    callback(new Error(`CORS origin not allowed: ${origin}`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
