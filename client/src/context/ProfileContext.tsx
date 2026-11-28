@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { HouseholdProfile } from '../types';
 import { api } from '../services/api';
+import { clientLogger } from '../utils/logger';
 
 interface ProfileContextType {
   profile: HouseholdProfile;
@@ -35,7 +36,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         if (isMounted && p) setProfile(p);
       })
       .catch(err => {
-        console.warn('Could not load profile from server, using local default:', err);
+        clientLogger.warn('Could not load profile from server, using local default', err);
       })
       .finally(() => {
         if (isMounted) setIsLoading(false);
@@ -49,7 +50,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const res = await api.updateProfile(updates);
       setProfile(res);
     } catch (err) {
-      console.warn('Server profile update error, updating local state:', err);
+      clientLogger.warn('Server profile update error, updating local state', err);
       setProfile(prev => ({ ...prev, ...updates }));
     }
   };

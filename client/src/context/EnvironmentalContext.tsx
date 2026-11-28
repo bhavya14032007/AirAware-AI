@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { AirQualityData, WeatherData } from '../types';
 import { api } from '../services/api';
+import { clientLogger } from '../utils/logger';
 
 export interface LocationSelection {
   name: string;
@@ -59,7 +60,7 @@ export const EnvironmentalProvider: React.FC<{ children: React.ReactNode }> = ({
       setWeather(weatherData);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to load air quality data';
-      console.error('Failed to fetch environmental data:', err);
+      clientLogger.error('Failed to fetch environmental data', err);
       setError(msg);
     } finally {
       setIsLoading(false);

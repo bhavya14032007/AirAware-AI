@@ -3,6 +3,7 @@ import { Sparkles, ArrowRight, ShieldCheck, AlertCircle, RefreshCw } from 'lucid
 import { useEnvironmental } from '../../context/EnvironmentalContext';
 import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 import { AIResponse } from '../../types';
 
 interface AISummaryBannerProps {
@@ -25,7 +26,7 @@ export const AISummaryBanner: React.FC<AISummaryBannerProps> = ({ onNavigateAdvi
         if (isMounted) setAiData(res);
       })
       .catch(err => {
-        console.warn('AI summary fetch error:', err);
+        clientLogger.warn('AI summary fetch error', err);
       })
       .finally(() => {
         if (isMounted) setLoading(false);

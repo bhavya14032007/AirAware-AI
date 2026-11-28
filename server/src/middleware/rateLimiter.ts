@@ -1,8 +1,14 @@
 import rateLimit from 'express-rate-limit';
+import {
+  GENERAL_RATE_LIMIT_WINDOW_MS,
+  GENERAL_RATE_LIMIT_MAX_REQUESTS,
+  AI_RATE_LIMIT_WINDOW_MS,
+  AI_RATE_LIMIT_MAX_REQUESTS
+} from '../constants/index.js';
 
 export const generalRateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // 200 requests per 15 min
+  windowMs: GENERAL_RATE_LIMIT_WINDOW_MS,
+  max: GENERAL_RATE_LIMIT_MAX_REQUESTS,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
@@ -12,8 +18,8 @@ export const generalRateLimiter = rateLimit({
 });
 
 export const aiRateLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 30, // 30 AI requests per minute
+  windowMs: AI_RATE_LIMIT_WINDOW_MS,
+  max: AI_RATE_LIMIT_MAX_REQUESTS,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
@@ -21,3 +27,4 @@ export const aiRateLimiter = rateLimit({
     status: 429
   }
 });
+

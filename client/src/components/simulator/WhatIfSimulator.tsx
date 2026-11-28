@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEnvironmental } from '../../context/EnvironmentalContext';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 import { WhatIfScenarioInput, WhatIfScenarioResult } from '../../types';
 
 export const WhatIfSimulator: React.FC = () => {
@@ -54,7 +55,7 @@ export const WhatIfSimulator: React.FC = () => {
       const res = await api.simulateWhatIf(scenario, location.latitude, location.longitude);
       setResult(res);
     } catch (err) {
-      console.error('Simulation error:', err);
+      clientLogger.error('Simulation error', err);
     } finally {
       setIsSimulating(false);
     }

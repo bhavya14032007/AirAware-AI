@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Users, Globe2, Sparkles, Handshake, HeartHandshake, ShieldCheck, Info } from 'lucide-react';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 import { CommunityData } from '../../types';
 
 export const CommunityInsights: React.FC = () => {
@@ -10,7 +11,7 @@ export const CommunityInsights: React.FC = () => {
   useEffect(() => {
     api.getCommunity()
       .then(setData)
-      .catch(console.warn)
+      .catch((err) => clientLogger.warn('Failed to load community insights', err))
       .finally(() => setLoading(false));
   }, []);
 

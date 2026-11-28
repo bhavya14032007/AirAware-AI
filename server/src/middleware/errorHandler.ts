@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
+import { logger } from '../utils/logger.js';
 
 /**
  * Centralized Application Error Handler
  * Enforces secure error masking in production to prevent stack trace leaks.
  */
 export function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction) {
-  if (process.env.NODE_ENV !== 'test') {
-    console.error('[Error Handler]', err);
-  }
+  logger.error('Unhandled request exception', err);
 
   // Handle Zod validation errors
   if (err instanceof ZodError) {

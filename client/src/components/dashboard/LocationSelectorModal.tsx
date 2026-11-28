@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, MapPin, X, Loader2 } from 'lucide-react';
 import { useEnvironmental, BENCHMARK_CITIES, LocationSelection } from '../../context/EnvironmentalContext';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 
 interface LocationSelectorModalProps {
   isOpen: boolean;
@@ -26,7 +27,7 @@ export const LocationSelectorModal: React.FC<LocationSelectorModalProps> = ({ is
         const res = await api.searchLocations(query);
         setResults(res);
       } catch (err) {
-        console.error(err);
+        clientLogger.error('Location search failed', err);
       } finally {
         setIsSearching(false);
       }

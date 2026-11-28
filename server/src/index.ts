@@ -11,6 +11,7 @@ import { communityRouter } from './routes/community.js';
 import { authMiddleware } from './middleware/auth.js';
 import { generalRateLimiter, aiRateLimiter } from './middleware/rateLimiter.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import { logger } from './utils/logger.js';
 
 const app = express();
 
@@ -54,8 +55,8 @@ export default app;
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(config.port, () => {
-    console.log(`[AirAware AI Server] Running on http://localhost:${config.port}`);
-    console.log(`[AirAware AI Server] Gemini API Key configured: ${Boolean(config.geminiApiKey)}`);
-    console.log(`[AirAware AI Server] Supabase configured: ${Boolean(config.supabaseUrl)}`);
+    logger.info(`Running on http://localhost:${config.port}`);
+    logger.info(`Gemini API Key configured: ${Boolean(config.geminiApiKey)}`);
+    logger.info(`Supabase configured: ${Boolean(config.supabaseUrl)}`);
   });
 }

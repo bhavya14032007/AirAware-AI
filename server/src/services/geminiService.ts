@@ -1,5 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { config } from '../config.js';
+import { logger } from '../utils/logger.js';
+import {
+  EPA_ICE_CO2_GRAMS_PER_KM,
+  EPA_TRANSIT_CO2_GRAMS_PER_KM,
+  DEFAULT_ERRAND_DISTANCE_KM
+} from '../constants/index.js';
 import { 
   AirQualityData, 
   WeatherData, 
@@ -26,7 +32,7 @@ export class GeminiService {
     fallbackGenerator: () => T
   ): Promise<T> {
     if (!this.genAI || !config.geminiApiKey) {
-      console.log('Gemini API key not configured. Using deterministic environmental AI reasoning engine.');
+      logger.info('Gemini API key not configured. Using deterministic environmental AI reasoning engine.');
       return fallbackGenerator();
     }
 
@@ -46,7 +52,7 @@ export class GeminiService {
       return validator(parsed);
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
-      console.warn('Gemini API call failed or timed out. Falling back to local intelligence engine:', errorMsg);
+      logger.warn('Gemini API call failed or timed out. Falling back to local intelligence engine', errorMsg);
       return fallbackGenerator();
     }
   }
@@ -101,7 +107,7 @@ CRITICAL GUIDELINES:
           ]
         };
       } catch (err) {
-        console.warn('Gemini chat error, using fallback:', err);
+        logger.warn('Gemini chat error, using fallback', err);
       }
     }
 
@@ -371,20 +377,22 @@ Respond strictly with valid JSON conforming to the schema.`;
     const opt = input.optimizedAlternative;
 
     // Emission calculation factors (kg CO2 per km)
+    const iceFactor = EPA_ICE_CO2_GRAMS_PER_KM / 1000;
+    const transitFactor = EPA_TRANSIT_CO2_GRAMS_PER_KM / 1000;
     const emissionFactors: Record<string, number> = {
-      'car': 0.192,
-      'transit': 0.045,
+      'car': iceFactor,
+      'transit': transitFactor,
       'bike': 0.005,
       'walk': 0.0,
       'remote': 0.0
     };
 
-    const usualFactor = emissionFactors[usual.commuteMode.toLowerCase()] ?? 0.18;
-    const optFactor = emissionFactors[opt.commuteMode.toLowerCase()] ?? 0.04;
+    const usualFactor = emissionFactors[usual.commuteMode.toLowerCase()] ?? iceFactor;
+    const optFactor = emissionFactors[opt.commuteMode.toLowerCase()] ?? transitFactor;
 
     // Errand factor: ~4 km per errand trip
-    const usualErrandEmissions = usual.errandsTrips * 4 * 0.192;
-    const optErrandEmissions = opt.errandsTrips * 4 * 0.192;
+    const usualErrandEmissions = usual.errandsTrips * DEFAULT_ERRAND_DISTANCE_KM * iceFactor;
+    const optErrandEmissions = opt.errandsTrips * DEFAULT_ERRAND_DISTANCE_KM * iceFactor;
 
     const baselineEmissions = Number(((usual.commuteDistanceKm * 2 * usualFactor) + usualErrandEmissions).toFixed(2));
     const optimizedEmissions = Number(((opt.commuteDistanceKm * 2 * optFactor) + optErrandEmissions).toFixed(2));

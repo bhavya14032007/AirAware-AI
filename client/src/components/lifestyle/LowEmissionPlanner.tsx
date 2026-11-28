@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bike, Car, ArrowRight, Shield, Leaf, DollarSign, CheckCircle2 } from 'lucide-react';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 
 export const LowEmissionPlanner: React.FC = () => {
   const habits = [
@@ -66,7 +67,7 @@ export const LowEmissionPlanner: React.FC = () => {
       });
       alert(`Action logged to Impact Tracker! Saved ~${co2} kg CO2.`);
     } catch (err) {
-      console.warn(err);
+      clientLogger.warn('Failed to log lifestyle action', err);
     }
   };
 

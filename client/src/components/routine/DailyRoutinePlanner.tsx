@@ -13,6 +13,7 @@ import {
 import { useEnvironmental } from '../../context/EnvironmentalContext';
 import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 import { DailyRoutineAction } from '../../types';
 
 export const DailyRoutinePlanner: React.FC = () => {
@@ -29,7 +30,7 @@ export const DailyRoutinePlanner: React.FC = () => {
       setActions(res.actions);
       setCompletedCount(res.actions.filter(a => a.completed).length);
     } catch (err) {
-      console.error('Error fetching routine plan:', err);
+      clientLogger.error('Error fetching routine plan', err);
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +51,7 @@ export const DailyRoutinePlanner: React.FC = () => {
           actionTitle: action.recommendation,
           co2SavedKg: action.category === 'commute' || action.category === 'sustainability' ? 1.5 : 0.0,
           exposureAvoidedPct: action.priority === 'high' ? 45 : 25
-        }).catch(console.warn);
+        }).catch(err => clientLogger.warn('Failed to log routine action', err));
       }
       setCompletedCount(next.filter(a => a.completed).length);
       return next;

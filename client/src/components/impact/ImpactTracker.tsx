@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Award, Flame, Shield, Leaf, PlusCircle, CheckCircle, Info } from 'lucide-react';
 import { api } from '../../services/api';
+import { clientLogger } from '../../utils/logger';
 import { ImpactSummary } from '../../types';
 
 export const ImpactTracker: React.FC = () => {
@@ -19,7 +20,7 @@ export const ImpactTracker: React.FC = () => {
       const data = await api.getImpact();
       setImpact(data);
     } catch (err) {
-      console.warn('Error loading impact summary:', err);
+      clientLogger.warn('Error loading impact summary', err);
     } finally {
       setLoading(false);
     }
@@ -44,7 +45,7 @@ export const ImpactTracker: React.FC = () => {
       setActionTitle('');
       await fetchImpact();
     } catch (err) {
-      console.error(err);
+      clientLogger.error('Failed to log impact action', err);
     } finally {
       setIsSubmitting(false);
     }

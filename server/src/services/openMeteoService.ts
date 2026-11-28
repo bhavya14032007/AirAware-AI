@@ -1,11 +1,13 @@
 import { AirQualityData, AQICategory, PollutantMeasurement, WeatherData } from '../types/index.js';
+import { logger } from '../utils/logger.js';
+import { TELEMETRY_CACHE_TTL_MS } from '../constants/index.js';
 
 interface CacheEntry<T> {
   data: T;
   timestamp: number;
 }
 
-const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
+const CACHE_TTL_MS = TELEMETRY_CACHE_TTL_MS;
 const airQualityCache = new Map<string, CacheEntry<AirQualityData>>();
 const weatherCache = new Map<string, CacheEntry<WeatherData>>();
 
@@ -122,7 +124,7 @@ export class OpenMeteoService {
         longitude: r.longitude,
       }));
     } catch (err) {
-      console.warn('Geocoding search error, returning benchmark matches:', err);
+      logger.warn('Geocoding search error, returning benchmark matches', err);
       // Fallback search over benchmarks
       return Object.values(BENCHMARK_LOCATIONS)
         .filter(loc => loc.city.toLowerCase().includes(query.toLowerCase()) || loc.country.toLowerCase().includes(query.toLowerCase()))
@@ -281,7 +283,7 @@ export class OpenMeteoService {
       airQualityCache.set(cacheKey, { data: result, timestamp: Date.now() });
       return result;
     } catch (err) {
-      console.error('Open-Meteo API fetch failed, using realistic simulated environmental model:', err);
+      logger.warn('Open-Meteo API fetch failed, using realistic simulated environmental model', err);
       return this.getSimulatedAirQuality(lat, lon, locationName);
     }
   }
